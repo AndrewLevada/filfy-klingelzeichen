@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">FilfyKlingelzeichen</string>
+    <string name="second_root">Second root</string>
+    <string name="first_root">First root</string>
+    <string name="check">Check</string>
 </resources>
