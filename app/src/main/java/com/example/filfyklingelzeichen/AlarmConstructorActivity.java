@@ -22,6 +22,8 @@ public class AlarmConstructorActivity extends AppCompatActivity {
     private TimePicker timePicker;
     private Button saveButton;
 
+    private int id;
+
     AppDatabase db;
 
     @Override
@@ -38,7 +40,7 @@ public class AlarmConstructorActivity extends AppCompatActivity {
                 AppDatabase.class, "database-name").build();
         AlarmDao alarmDao = db.alarmDao();
 
-        int id = getIntent().getIntExtra(ALARM_INDEX, -1);
+        id = getIntent().getIntExtra(ALARM_INDEX, -1);
 
         Calendar now = Calendar.getInstance();
         if (id == -1) {
@@ -59,7 +61,11 @@ public class AlarmConstructorActivity extends AppCompatActivity {
 
             new Thread(() -> {
                 Alarm alarm = new Alarm(name, hour, minute);
-                alarmDao.insert(alarm);
+                if (id == -1) {
+                    alarmDao.insert(alarm);
+                } else {
+                    alarmDao.update(alarm);
+                }
                 alarm.schedule(this);
                 finish();
             }).start();
