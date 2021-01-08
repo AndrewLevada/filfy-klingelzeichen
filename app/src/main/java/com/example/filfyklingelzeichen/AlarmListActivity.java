@@ -1,6 +1,9 @@
 package com.example.filfyklingelzeichen;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -31,6 +34,8 @@ public class AlarmListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list);
 
+        createNotificationChannel();
+
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "database-name").build();
         alarms = new ArrayList<>();
@@ -59,6 +64,19 @@ public class AlarmListActivity extends AppCompatActivity {
 
             if (adapter != null) uiHandler.post(() -> adapter.notifyDataSetChanged());
         }).start();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    "12",
+                    "Мерзкий Будильник",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
     }
 
     private void setupRecyclerView() {

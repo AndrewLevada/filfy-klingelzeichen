@@ -31,7 +31,7 @@ public class RecyclerAlarmsAdapter extends RecyclerAdapter {
         ((TextView) item.findViewById(R.id.nameText)).setText(alarm.name);
         ((TextView) item.findViewById(R.id.timeText)).setText(alarm.hour + ":" + alarm.minute);
         ((SwitchMaterial) item.findViewById(R.id.statusSwitch)).setChecked(alarm.isActive);
-        onclick.invoke(alarm.id);
+        item.setOnClickListener((view) -> onclick.invoke(alarm.id));
 
          // Hide divider on last element
          if (position == getItemCount() - 1)

@@ -32,6 +32,7 @@ public class AlarmConstructorActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.activity_constructor_name);
         timePicker = findViewById(R.id.activity_constructor_time_picker);;
         saveButton = findViewById(R.id.activity_constructor_save);
+        timePicker.setIs24HourView(true);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "database-name").build();
@@ -59,6 +60,7 @@ public class AlarmConstructorActivity extends AppCompatActivity {
             new Thread(() -> {
                 Alarm alarm = new Alarm(name, hour, minute);
                 alarmDao.insert(alarm);
+                alarm.schedule(this);
                 finish();
             }).start();
         });
