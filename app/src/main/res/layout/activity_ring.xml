@@ -62,7 +62,7 @@
             android:id="@+id/input_root1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:textColor="@color/colorOnSurface"
             android:textCursorDrawable="@null" />
 
@@ -74,7 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:hint="@string/first_root"
+        android:hint="@string/second_root"
         app:boxStrokeColor="@color/colorPrimary"
         app:counterEnabled="false"
         app:helperTextEnabled="false"
@@ -87,7 +87,7 @@
             android:id="@+id/input_root2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:textColor="@color/colorOnSurface"
             android:textCursorDrawable="@null" />
 
@@ -95,7 +95,6 @@
 
     <Button
         android:id="@+id/activity_ring_check"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/check"

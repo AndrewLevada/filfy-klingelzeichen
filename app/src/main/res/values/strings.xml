@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FilfyKlingelzeichen</string>
-    <string name="second_root">Second root</string>
-    <string name="first_root">First root</string>
+    <string name="second_root">Второй корень</string>
+    <string name="first_root">Первый корень</string>
     <string name="check">Check</string>
     <string name="save">Save</string>
     <string name="alarm_name">Title</string>

@@ -14,8 +14,8 @@ public class Equation implements Task {
 
     @Override
     public String getEquation() {
-        return "x^2 "
-                + (b > 0 ? "+ " : "- ") + Math.abs(b) + "x "
+        return "x² "
+                + (b > 0 ? "- " : "+ ") + Math.abs(b) + "x "
                 + (c > 0 ? "+ " : "- ") + Math.abs(c) + " = 0";
     }
 

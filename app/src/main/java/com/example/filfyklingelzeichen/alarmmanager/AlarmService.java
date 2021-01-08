@@ -1,11 +1,15 @@
 package com.example.filfyklingelzeichen.alarmmanager;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.Vibrator;
 
@@ -25,20 +29,24 @@ public class AlarmService extends Service {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.default_music);
         mediaPlayer.setLooping(true);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+        mediaPlayer.setVolume(1.0f, 1.0f);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent == null) return START_STICKY;
+
         Intent notificationIntent = new Intent(this, RingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-        String alarmTitle = String.format("%s Alarm", intent.getStringExtra(String.valueOf(R.string.notification_title)));
+        String alarmTitle = intent.getStringExtra(AlarmBroadcastReceiver.TITLE);
 
         Notification notification = new NotificationCompat.Builder(this, "12")
                 .setContentTitle(alarmTitle)
-                .setContentText("Ring Ring .. Ring Ring")
+                .setContentText("Пора вставать")
                 .setSmallIcon(R.drawable.ic_add)
                 .setContentIntent(pendingIntent)
                 .build();
