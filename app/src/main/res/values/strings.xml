@@ -8,4 +8,5 @@
     <string name="error">Ошибка</string>
     <string name="wrong_answer">Вы ввели неверный ответ!</string>
     <string name="try_more">Попробовать ещё</string>
+    <string name="notification_title">Мерзкий будильник</string>
 </resources>

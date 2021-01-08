@@ -2,6 +2,7 @@ package com.example.filfyklingelzeichen;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.filfyklingelzeichen.alarmmanager.AlarmService;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,8 @@ public class RingActivity extends AppCompatActivity {
 
             if (isCorrect) {
                 mediaPlayer.stop();
+                Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                getApplicationContext().stopService(intentService);
                 finish();
             } else Toolbox.showSimpleDialog(this,
                     R.string.error, R.string.wrong_answer, R.string.try_more);
