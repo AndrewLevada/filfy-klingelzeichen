@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,27 +23,25 @@ public class RingActivity extends AppCompatActivity {
     EditText root1_et = findViewById(R.id.activity_ring_root1);
     EditText root2_et = findViewById(R.id.activity_ring_root2);
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring);
-
+        playAlarmSound();
         Equation eq = new Equation(new Equation.Easy());
         int[] ans = eq.getAnswers();
         equation_tv.setText(eq.getEquation());
 
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int root1 = Integer.parseInt(root1_et.getText().toString());
-                int root2 = Integer.parseInt(root2_et.getText().toString());
+        check.setOnClickListener(v -> {
+            int root1 = Integer.parseInt(root1_et.getText().toString());
+            int root2 = Integer.parseInt(root2_et.getText().toString());
 
-                if ((root1 == ans[0] && root2 == ans[1]) || (root1 == ans[1] && root2 == ans[0])) {
-                    mediaPlayer.stop();
-                    finish();
-                } else {
-                    message_tv.setText("Wrong answer");
-                }
+            if ((root1 == ans[0] && root2 == ans[1]) || (root1 == ans[1] && root2 == ans[0])) {
+                mediaPlayer.stop();
+                finish();
+            } else {
+                message_tv.setText("Wrong answer");
             }
         });
     }
@@ -55,20 +52,11 @@ public class RingActivity extends AppCompatActivity {
             @Override
             protected Boolean doInBackground(Void... voids) {
                 try {
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @SuppressLint("StaticFieldLeak")
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mediaPlayer.reset();
-                            mediaPlayer.release();
-                        }
+                    mediaPlayer.setOnCompletionListener(mp -> {
+                        mediaPlayer.reset();
+                        mediaPlayer.release();
                     });
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mediaPlayer.start();
-                        }
-                    });
+                    mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());
 
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                     mediaPlayer.setVolume(1.0f, 1.0f);
