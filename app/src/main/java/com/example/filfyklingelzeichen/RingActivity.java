@@ -12,16 +12,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class RingActivity extends AppCompatActivity {
     final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.default_music);
 
     Button check = findViewById(R.id.activity_ring_check);
 
     TextView equation_tv = findViewById(R.id.activity_ring_equation);
-    TextView message_tv = findViewById(R.id.activity_ring_message);
 
-    EditText root1_et = findViewById(R.id.activity_ring_root1);
-    EditText root2_et = findViewById(R.id.activity_ring_root2);
+    EditText root1_et = findViewById(R.id.input_root1);
+    EditText root2_et = findViewById(R.id.input_root2);
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -30,19 +31,31 @@ public class RingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ring);
         playAlarmSound();
         Equation eq = new Equation(new Equation.Easy());
-        int[] ans = eq.getAnswers();
+        int[] answers = eq.getAnswers();
         equation_tv.setText(eq.getEquation());
 
         check.setOnClickListener(v -> {
-            int root1 = Integer.parseInt(root1_et.getText().toString());
-            int root2 = Integer.parseInt(root2_et.getText().toString());
+            ArrayList<Integer> roots = new ArrayList<>();
+            roots.add(Integer.parseInt(root1_et.getText().toString()));
+            roots.add(Integer.parseInt(root2_et.getText().toString()));
 
-            if ((root1 == ans[0] && root2 == ans[1]) || (root1 == ans[1] && root2 == ans[0])) {
+            boolean isCorrect = false;
+            out:
+
+            for (int a = 0; a < answers.length; a++) {
+                for (int r = 0; r < roots.size(); r++) {
+                    if (answers[a] == roots.get(r)) {
+                        isCorrect = true;
+                        break out;
+                    }
+                }
+            }
+
+            if (isCorrect) {
                 mediaPlayer.stop();
                 finish();
-            } else {
-                message_tv.setText("Wrong answer");
-            }
+            } else Toolbox.showSimpleDialog(this,
+                    R.string.error, R.string.wrong_answer, R.string.try_more);
         });
     }
 

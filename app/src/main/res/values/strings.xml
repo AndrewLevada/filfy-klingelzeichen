@@ -3,4 +3,8 @@
     <string name="second_root">Second root</string>
     <string name="first_root">First root</string>
     <string name="check">Check</string>
+    
+    <string name="error">Ошибка</string>
+    <string name="wrong_answer">Вы ввели неверный ответ!</string>
+    <string name="try_more">Попробовать ещё</string>
 </resources>
