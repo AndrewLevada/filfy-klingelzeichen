@@ -1,6 +1,8 @@
 package com.example.filfyklingelzeichen;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,11 +14,11 @@ import com.example.filfyklingelzeichen.db.AlarmDao;
 import com.example.filfyklingelzeichen.db.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmListActivity extends AppCompatActivity {
-    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-            AppDatabase.class, "database-name").build();
+    AppDatabase db;
 
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
@@ -29,6 +31,10 @@ public class AlarmListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list);
 
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "database-name").build();
+        alarms = new ArrayList<>();
+
         // Find views by ids
         fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recycler);
@@ -37,21 +43,32 @@ public class AlarmListActivity extends AppCompatActivity {
 
         // Process fab onclick
         fab.setOnClickListener(v -> {
-            // TODO: Open constructor
-            alarms.add(new Alarm("Будильник " + (alarms.size() + 1), 13, 40));
-            adapter.notifyDataSetChanged();
+            startActivity(new Intent(this, AlarmConstructorActivity.class));
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Handler uiHandler = new Handler();
+        new Thread(() -> {
+            AlarmDao alarmDao = db.alarmDao();
+            alarms.clear();
+            alarms.addAll(alarmDao.getAll());
+
+            if (adapter != null) uiHandler.post(() -> adapter.notifyDataSetChanged());
+        }).start();
     }
 
     private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        AlarmDao alarmDao = db.alarmDao();
-        alarms = alarmDao.getAll();
-
-        adapter = new RecyclerAlarmsAdapter(recyclerView, alarms, index -> {
-            // TODO: Open constructor
+        adapter = new RecyclerAlarmsAdapter(recyclerView, alarms, id -> {
+            Intent intent = new Intent(this, AlarmConstructorActivity.class);
+            intent.putExtra(AlarmConstructorActivity.ALARM_INDEX, id);
+            startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
     }

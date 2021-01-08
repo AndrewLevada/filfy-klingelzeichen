@@ -14,15 +14,14 @@ import com.example.filfyklingelzeichen.db.Alarm;
 import java.util.List;
 
 public class RecyclerAlarmsAdapter extends RecyclerAdapter {
-    private final Context context;
-    private List<Alarm> alarms;
+    private final List<Alarm> alarms;
+    private final Toolbox.CallbackOne<Integer> onclick;
 
     public RecyclerAlarmsAdapter(RecyclerView recyclerView, List<Alarm> alarms, Toolbox.CallbackOne<Integer> onclick) {
         super(recyclerView);
         this.alarms = alarms;
         itemLayout = R.layout.recyclable_alarm_template;
-
-        context = recyclerView.getContext();
+        this.onclick = onclick;
     }
 
     @Override
@@ -32,6 +31,7 @@ public class RecyclerAlarmsAdapter extends RecyclerAdapter {
         ((TextView) item.findViewById(R.id.nameText)).setText(alarm.name);
         ((TextView) item.findViewById(R.id.timeText)).setText(alarm.hour + ":" + alarm.minute);
         ((SwitchMaterial) item.findViewById(R.id.statusSwitch)).setChecked(alarm.isActive);
+        onclick.invoke(alarm.id);
 
          // Hide divider on last element
          if (position == getItemCount() - 1)

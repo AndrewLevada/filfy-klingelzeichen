@@ -17,19 +17,19 @@ import java.util.ArrayList;
 public class RingActivity extends AppCompatActivity {
     final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.default_music);
 
-    Button check = findViewById(R.id.activity_ring_check);
-
-    TextView equation_tv = findViewById(R.id.activity_ring_equation);
-
-    EditText root1_et = findViewById(R.id.input_root1);
-    EditText root2_et = findViewById(R.id.input_root2);
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring);
+
+        Button check = findViewById(R.id.activity_ring_check);
+        TextView equation_tv = findViewById(R.id.activity_ring_equation);
+        EditText root1_et = findViewById(R.id.input_root1);
+        EditText root2_et = findViewById(R.id.input_root2);
+
         playAlarmSound();
+
         Equation eq = new Equation(new Equation.Easy());
         int[] answers = eq.getAnswers();
         equation_tv.setText(eq.getEquation());

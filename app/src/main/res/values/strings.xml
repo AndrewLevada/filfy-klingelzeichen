@@ -5,4 +5,7 @@
     <string name="check">Check</string>
     <string name="save">Save</string>
     <string name="alarm_name">Title</string>
+    <string name="error">Ошибка</string>
+    <string name="wrong_answer">Вы ввели неверный ответ!</string>
+    <string name="try_more">Попробовать ещё</string>
 </resources>
