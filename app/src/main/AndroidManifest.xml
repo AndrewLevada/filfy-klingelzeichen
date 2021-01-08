@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FilfyKlingelzeichen">
-
+        <activity android:name=".RingActivity"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AlarmConstructorActivity"
+            android:label="@string/title_activity_alarm_constructor"
+            android:theme="@style/Theme.FilfyKlingelzeichen.NoActionBar" />
+        <activity
+            android:name=".AlarmListActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
