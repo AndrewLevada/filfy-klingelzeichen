@@ -8,15 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FilfyKlingelzeichen">
-        <activity android:name=".RingActivity"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".RingActivity"/>
+        <activity android:name=".AlarmConstructorActivity"/>
         <activity
-            android:name=".AlarmConstructorActivity"
-            android:label="@string/title_activity_alarm_constructor"
-            android:theme="@style/Theme.FilfyKlingelzeichen.NoActionBar" />
-        <activity
-            android:name=".AlarmListActivity"
-            android:label="@string/title_activity_main">
+            android:name=".AlarmListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
