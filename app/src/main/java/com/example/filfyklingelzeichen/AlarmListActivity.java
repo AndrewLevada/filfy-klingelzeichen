@@ -48,7 +48,7 @@ public class AlarmListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         AlarmDao alarmDao = db.alarmDao();
-        List<Alarm> alarms = alarmDao.getAll();
+        alarms = alarmDao.getAll();
 
         adapter = new RecyclerAlarmsAdapter(recyclerView, alarms, index -> {
             // TODO: Open constructor
