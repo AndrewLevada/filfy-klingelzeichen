@@ -12,7 +12,6 @@ import com.example.filfyklingelzeichen.db.AlarmDao;
 import com.example.filfyklingelzeichen.db.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmListActivity extends AppCompatActivity {
@@ -48,9 +47,8 @@ public class AlarmListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        alarms = new ArrayList<>();
         AlarmDao alarmDao = db.alarmDao();
-        List<Alarm> users = alarmDao.getAll();
+        List<Alarm> alarms = alarmDao.getAll();
 
         adapter = new RecyclerAlarmsAdapter(recyclerView, alarms, index -> {
             // TODO: Open constructor
