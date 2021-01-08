@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -20,6 +21,12 @@ public interface AlarmDao {
 
     @Insert
     void insertAll(Alarm... alarm);
+
+    @Insert
+    void insert(Alarm alarm);
+
+    @Update
+    void update(Alarm alarm);
 
     @Delete
     void delete(Alarm alarm);
