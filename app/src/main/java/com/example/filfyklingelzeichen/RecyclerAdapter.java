@@ -61,7 +61,7 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
 
     void fadeAddAnimate(View view, int position) {
         Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_in);
-        animation.setStartOffset(100 * position);
+        animation.setStartOffset(20 * position);
         view.startAnimation(animation);
     }
 }

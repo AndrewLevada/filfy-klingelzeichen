@@ -1,9 +1,13 @@
 package com.example.filfyklingelzeichen;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.List;
 
@@ -23,12 +27,13 @@ public class RecyclerAlarmsAdapter extends RecyclerAdapter {
     void fillItemWithData(ViewGroup item, int position) {
         Alarm alarm = alarms.get(position);
 
-//        ((TextView) item.findViewById(R.id.recycler_number)).setText(number.getPhone());
-//        ((TextView) item.findViewById(R.id.recycler_label)).setText(number.getLabel());
+        ((TextView) item.findViewById(R.id.nameText)).setText(alarm.name);
+        ((TextView) item.findViewById(R.id.timeText)).setText(alarm.hour + ":" + alarm.minute);
+        ((SwitchMaterial) item.findViewById(R.id.statusSwitch)).setChecked(alarm.isActive);
 
-        // Hide divider on last element
-        // if (position == getItemCount() - 1)
-        //     item.findViewById(R.id.recycler_divider).setVisibility(View.GONE);
+         // Hide divider on last element
+         if (position == getItemCount() - 1)
+             item.findViewById(R.id.recycler_divider).setVisibility(View.GONE);
 
         fadeAddAnimate(item, position);
     }

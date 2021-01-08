@@ -34,6 +34,8 @@ public class AlarmListActivity extends AppCompatActivity {
         // Process fab onclick
         fab.setOnClickListener(v -> {
             // TODO: Open constructor
+            alarms.add(new Alarm("Будильник " + (alarms.size() + 1), 13, 40, true));
+            adapter.notifyDataSetChanged();
         });
     }
 
