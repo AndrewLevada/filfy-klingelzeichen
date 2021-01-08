@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import com.example.filfyklingelzeichen.db.Alarm;
+
 import java.util.List;
 
 public class RecyclerAlarmsAdapter extends RecyclerAdapter {

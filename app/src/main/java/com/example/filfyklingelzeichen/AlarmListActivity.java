@@ -1,19 +1,23 @@
 package com.example.filfyklingelzeichen;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import com.example.filfyklingelzeichen.db.Alarm;
+import com.example.filfyklingelzeichen.db.AlarmDao;
+import com.example.filfyklingelzeichen.db.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmListActivity extends AppCompatActivity {
+    AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+            AppDatabase.class, "database-name").build();
+
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
@@ -43,8 +47,8 @@ public class AlarmListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        // TODO: Get alarms
-        alarms = new ArrayList<>();
+        AlarmDao alarmDao = db.alarmDao();
+        alarms = alarmDao.getAll();
 
         adapter = new RecyclerAlarmsAdapter(recyclerView, alarms, index -> {
             // TODO: Open constructor
