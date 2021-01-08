@@ -18,6 +18,8 @@ import com.example.filfyklingelzeichen.db.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AlarmListActivity extends AppCompatActivity {
@@ -62,6 +64,15 @@ public class AlarmListActivity extends AppCompatActivity {
             alarms.clear();
             alarms.addAll(alarmDao.getAll());
 
+            Collections.sort(alarms, new Comparator<Alarm>() {
+                public int compare(Alarm a1, Alarm a2) {
+                    int hours_compare = Integer.compare(a1.hour, a2.hour);
+                    if (hours_compare == 0) {
+                        return Integer.compare(a1.minute, a2.minute);
+                    }
+                    return hours_compare;
+                }
+            });
             if (adapter != null) uiHandler.post(() -> adapter.notifyDataSetChanged());
         }).start();
     }
